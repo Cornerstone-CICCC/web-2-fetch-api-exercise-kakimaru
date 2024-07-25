@@ -2,14 +2,17 @@
 const weather = document.querySelector('.content')
 
 const getData = async function() {
-  const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=49.2497&longitude=-123.1193&current=temperature_2m,is_day,rain,showers,wind_speed_10m&timezone=auto&forecast_days=1`);
-  const data = await res.json();
-  console.log(data);
-
-  renderData(data)
+  try {
+    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=49.2497&longitude=-123.1193&current=temperature_2m,is_day,rain,showers,wind_speed_10m&timezone=auto&forecast_days=1`);
+    const data = await res.json();
+  
+    renderData(data)
+  } catch(err) {
+    console.error(err);
+  }
 }
 
-const renderData = async function(d) {
+const renderData = function(d) {
   const dDate = d.current.time;
   const date = new Date(dDate).toLocaleString('en-us');
 
